@@ -5,7 +5,7 @@
         <div class="container">
             <div class="header-body text-center mt-7 mb-7">
                 <div class="row justify-content-center">
-                    <div class="col-lg-5 col-md-6">
+                    <div class="col-md-12">
                         <h1 class="text-black">{{ __('Bienvenido al zoo-control.') }}</h1>
 
 

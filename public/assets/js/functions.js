@@ -75,7 +75,7 @@ function addAnimal() {
 
     formEvento.append('nameAni', $('#nameAni').val());
     formEvento.append('especieAni', $('#especieAni').val());
-
+    formEvento.append('imageAni', $('#imageAni')[0].files[0]);
 
     Swal.fire({
         title: '¿Estas seguro que deseas almacenar este animal?',
@@ -531,7 +531,7 @@ function infoAnimals(id) {
         $("#animalname").val(response.nombre);
         $("#especieanimal").val(response.especie);
         $('#updaanimal').data('id', id);
-
+        $('#imageAnimal').attr('src', response.image);
         $("#modal-animales").modal();
     }).fail(function (error) {
         Swal.fire(
@@ -556,6 +556,7 @@ function updateAnimal() {
     let formAnimal = new FormData();
     formAnimal.append('animalname', $('#animalname').val());
     formAnimal.append('especieanimal', $('#especieanimal').val());
+    formAnimal.append('updafileAnimal', $('#updafileAnimal')[0].files[0]);
     formAnimal.append('id', id);
     Swal.fire({
         title: '¿Estas seguro que deseas actulizar esta animal?',
@@ -1099,6 +1100,7 @@ function createAdmin(){
                     if (response.success) {
                         $('#modal-crear').modal('hide');
                         $('#adminTable').DataTable().ajax.reload();
+                        $("#form-admin").trigger('reset');
                         Swal.fire(response.message, '', 'success')
                     } else {
                         Swal.close();

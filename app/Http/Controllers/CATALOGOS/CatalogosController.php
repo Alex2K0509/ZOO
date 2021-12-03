@@ -116,7 +116,7 @@ class CatalogosController extends Controller
         }
 
 
-        //dd("entra");
+
     }
 
     /**
@@ -148,6 +148,32 @@ class CatalogosController extends Controller
             );
         }
 
+        if($request->file('imageAni')){
+            $rules2 = [
+                'imageAni' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+            ];
+            $messages2 = [
+                'imageAni.max' => 'El archivo no debe ser superior a 2 megas'
+            ];
+            $validator2 = Validator::make($request->all(), $rules2, $messages2);
+
+            if ($validator2->fails()) {
+                $messagesF = $validator2->messages();
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' =>$messagesF->first(),
+                    ]
+                );
+            }
+
+            $file = $request->file('imageAni');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+        }else{
+            $url = env('APP_URL').'images/ANIMAL_ESTATIC.png';
+        }
         $data = $request->all();
         try {
 
@@ -157,6 +183,7 @@ class CatalogosController extends Controller
             $Animal = new ANIMales();
             $Animal->setNombre($data['nameAni']);
             $Animal->setEspecie($data['especieAni']);
+            $Animal->setImage($url);
             $Animal->save();
             DB::commit();
             return response()->json(

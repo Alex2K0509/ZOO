@@ -155,7 +155,6 @@ class ProfileController extends Controller
 
 
         $imageProfile = $request->file('imageProfile');
-        #dD($imageProfile);
         if (!is_null($imageProfile)) {
             $validator = Validator::make($request->all(), [
                 'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

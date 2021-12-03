@@ -203,11 +203,11 @@ class RecordsController extends Controller
     protected function infoediteve(Request $request)
     {
         $data = $request->all();
-        # dd($data);
+
         try {
             $hash = new Hashids('', 10);
             $id = $hash->decode($data['code']);
-            #dd($id[0]);
+
             $InfoEventos = CATEventos::find($id[0]);
             return response()->json([
                 "nombre" => $InfoEventos->getEveNombre(),
@@ -219,7 +219,10 @@ class RecordsController extends Controller
                 "image" => $InfoEventos->getEveImage(),
             ]);
         } catch (\Exception $exception) {
-            dd($exception);
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
         }
 
     }
@@ -424,7 +427,7 @@ class RecordsController extends Controller
         $data = $request->all();
         $hash = new Hashids('', 10);
         $id = $hash->decode($data['code']);
-        # dd($id[0]);
+
         try {
             $evento = CATEventos::where('eve_eve', '=', $id[0])->first();
             $evento->delete();
@@ -491,10 +494,10 @@ class RecordsController extends Controller
 
         try {
             $data = $request->all();
-            # dd($data);
+
             $hash = new Hashids('', 10);
             $idpub = $hash->decode($data['id']);
-            //dd($idpub[0]);
+
             $UpdatPub = PUBlicaciones::where('pub_id', $idpub[0])->first();
 
             $dburl = isset($imageurl) ? !is_null($imageurl) ? $imageurl : $UpdatPub->getImage() : $UpdatPub->getImage();
@@ -502,7 +505,7 @@ class RecordsController extends Controller
             $UpdatPub->setDescrip($data['decrippubli']);
             $UpdatPub->setImage($dburl);
             $UpdatPub->save();
-            #dd($UpdateEve);
+
             return response()->json([
                 'success' => true,
                 'message' => "Se ha actulizado correctamente."
@@ -521,7 +524,7 @@ class RecordsController extends Controller
         $data = $request->all();
         $hash = new Hashids('', 10);
         $id = $hash->decode($data['code']);
-        #dd($id[0]);
+
         try {
             $evento = PUBlicaciones::where('pub_id', '=', $id[0])->first();
             $evento->delete();
@@ -553,6 +556,7 @@ class RecordsController extends Controller
             return response()->json([
                 "nombre" => $InfoAnimales->getNombre(),
                 "especie" => $InfoAnimales->getEspecie(),
+                "image" => $InfoAnimales->getImage(),
             ]);
         } catch (\Exception $exception) {
             return response()->json([
@@ -583,6 +587,32 @@ class RecordsController extends Controller
                 'message' => $messages->first(),
             ]);
         }
+        if($request->file('updafileAnimal')){
+            $rules2 = [
+                'updafileAnimal' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+            ];
+            $messages2 = [
+                'updafileAnimal.max' => 'El archivo no debe ser superior a 2 megas'
+            ];
+            $validator2 = Validator::make($request->all(), $rules2, $messages2);
+
+            if ($validator2->fails()) {
+                $messagesF = $validator2->messages();
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' =>$messagesF->first(),
+                    ]
+                );
+            }
+
+            $file = $request->file('updafileAnimal');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+        }else{
+            $url = null;
+        }
         try {
             $data = $request->all();
             $hash = new Hashids('', 10);
@@ -590,6 +620,7 @@ class RecordsController extends Controller
             $UpdateA = ANIMales::where('an_id', $idAnimal)->first();
             $UpdateA->setNombre($data['animalname']);
             $UpdateA->setEspecie($data['especieanimal']);
+            $UpdateA->setImage($url);
             $UpdateA->save();
 
             return response()->json([
@@ -612,7 +643,6 @@ class RecordsController extends Controller
 
         try {
             $Pubs = PUBlicaciones::where('pub_animal', '=', $id[0])->get();
-            #dd($Pubs);
             if (count($Pubs) > 0) {
                 foreach ($Pubs as $post) {
                     $post->delete();
@@ -645,9 +675,7 @@ class RecordsController extends Controller
         $ideve = $hash->decode($data['code']);
 
         $Eventos = CATEventos::where('eve_eve', $ideve)->first();
-       // $Tokens = TOKEn::all();
-        //dd($Tokens);
-        #dd($ideve, $Eventos);
+
         try {
             foreach (TOKEn::all() as $tokens) {
 
@@ -705,9 +733,7 @@ class RecordsController extends Controller
         $ideve = $hash->decode($data['code']);
 
         $Eventos = PUBlicaciones::where('pub_id', $ideve)->first();
-        // $Tokens = TOKEn::all();
-        //dd($Tokens);
-        #dd($ideve, $Eventos);
+
 
         try {
             foreach (TOKEn::all() as $tokens) {

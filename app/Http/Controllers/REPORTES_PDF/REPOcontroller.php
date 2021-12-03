@@ -20,17 +20,17 @@ class REPOcontroller extends Controller
             $hash = new Hashids('', 10);
             $data = $request->all();
             $reporteid = $hash->decode($data['code']);
-            //dd($reporteid[0]);
+
             #buscando el evento por el id
             $Evento = CATEventos::find($reporteid[0]);
-            #dd($Evento);
+
 
             $pdf = app('dompdf.wrapper')->setPaper('L', 'portrait')->loadView('pdf.events_report', [
                 'Evento' => $Evento
             ]);
             $content = base64_encode($pdf->download()->getOriginalContent());
 
-            //dd(base64_encode($content));
+
 
             return response()->json([
                 "pdf" => 'data:application/pdf;base64,' . $content
@@ -38,7 +38,12 @@ class REPOcontroller extends Controller
             ]);
             return true;
         } catch (Exception $e) {
-            return dd($e);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ]
+            );
         }
 
 

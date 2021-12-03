@@ -70,7 +70,7 @@ class TOKen extends Model
                 ]
         );
         $body = $product->json();
-        #dd($body);
+
         $information = [
             "datehour"=>$fecha=Carbon::now()->toDateTimeString(),
             "temp"=>$body['main']['temp'] - 273.15,

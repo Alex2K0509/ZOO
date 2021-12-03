@@ -269,7 +269,15 @@
                                         <label for="especieanimal">Especie del animal:</label>
                                         <input type="text"  class="form-control" name="especieanimal" id="especieanimal">
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="updafileAnimal">Imagen promocional del animal:</label>
+                                        <input type="file" class="form-control" name="updafileAnimal" id="updafileAnimal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="imageAnimal">Imagen actual de el animal:</label>
+                                        <br>
+                                        <img id="imageAnimal" name="imageAnimal" src="" class="img img-thumbnail" width="360px">
+                                    </div>
                                 </form>
 
                             </div>

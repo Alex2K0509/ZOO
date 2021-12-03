@@ -25,7 +25,7 @@ protected function getEventos(){
         $Eventos = CATEventos::all();
         if(count($Eventos) <=0){
             $response = [
-                "mensaje" => "no existen eventos",
+                "mensaje" => "No existen eventos",
             ];
             return response()->json($response, 200);
         }
@@ -35,7 +35,7 @@ protected function getEventos(){
         ];
         return response()->json($response, 200);
     }catch (\Exception $exception){
-        #dd($response);
+
         $response = [
             "mensaje" => "error",
             "eventos" => $exception->getMessage()
@@ -53,13 +53,19 @@ protected function getEventos(){
 protected function getAnimales(){
     try {
         $AnimaleInfo = ANIMales::all();
+        if(count($AnimaleInfo) <=0){
+            $response = [
+                "mensaje" => "No existen animales registrados en este momento.",
+            ];
+            return response()->json($response, 200);
+        }
         $response = [
             "mensaje" => "succes",
             "animales" => $AnimaleInfo
         ];
         return response()->json($response, 200);
     }catch (\Exception $exception){
-        #dd($response);
+
         $response = [
             "mensaje" => "error",
             "error" => $exception->getMessage()
@@ -79,7 +85,7 @@ protected function getAnimales(){
 protected function getPublicaciones(Request $request){
     try {
         $data = $request->all();
-        #dd($data);
+
         $take    = isset($data['limit'])? !is_null($data['limit'])? $data['limit'] : 100 : 100;
         $month=$data['month'];
         $year=$data['year'];
@@ -104,7 +110,7 @@ $publicacionesAll = PUBlicaciones::getPosts($data['id'],$params)->get();
             return response()->json($response, 404);
         }
     }catch (\Exception $exception){
-       # dd($exception);
+
         $response = [
             "mensaje" => "error",
             "error" => $exception->getMessage()

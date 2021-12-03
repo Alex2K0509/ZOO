@@ -77,10 +77,11 @@
                               <label for="especieAni">Especie del animal:</label>
                               <input type="text" class="form-control" name="especieAni" id="especieAni">
                             </div>
-
-
-
-                            <button type="button" href="javascript:void(0)" onclick="addAnimal()" class="btn btn-default">Almacenar animal</button>
+                            <div class="form-group">
+                                <label for="imageAni">Imagen del animal (Opcional):</label>
+                                <input type="file" class="form-control" name="imageAni" id="imageAni">
+                            </div>
+                            <button type="button" href="javascript:void(0)" onclick="addAnimal()" class="btn btn-primary">Almacenar animal</button>
                           </form>
                     </div>
 

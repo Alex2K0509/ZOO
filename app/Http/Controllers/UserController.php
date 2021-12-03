@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Hash as HHash;
 use DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use mysql_xdevapi\Exception;
 
 class UserController extends Controller
@@ -43,12 +44,14 @@ class UserController extends Controller
         }
         DB::beginTransaction();
         try {
+            $url = env('APP_URL').'images/USUARIO_ESTATIC.png';
 
             $usuario = new User();
             $usuario->setName($data['nameAdmin'].''.$data['apepatAdmin'].''.$data['apematAdmin']);
             $usuario->setEmail($data['emailAdmin']);
             $usuario->password = HHash::make($data['paswordAdmin']);
             $usuario->setType(1);
+            $usuario->setPic($url); //Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename) );
             $usuario->setStatusNum(1);
             $usuario->save();
             DB::commit();
