@@ -940,6 +940,7 @@ function editPass() {
                         if (response.success) {
 
                             Swal.fire(response.message, '', 'success')
+                            $("#form-password-profile").trigger('reset');
                         } else {
                             Swal.close();
                             Swal.fire(

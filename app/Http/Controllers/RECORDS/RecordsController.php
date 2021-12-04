@@ -175,7 +175,7 @@ class RecordsController extends Controller
 
             $ideve = $hash->decode($data['id']);
             $UpdateEve = CATEventos::where('eve_eve', $ideve)->first();
-            $dburl = isset($imageurl) ? !is_null($imageurl) ? $imageurl : $UpdateEve->getEveImage() : $UpdateEve->getEveImage();
+            
 
 
 
@@ -185,7 +185,7 @@ class RecordsController extends Controller
             $UpdateEve->setEveHorarioFin($data['timefin']);
             $UpdateEve->setEveFechaIni($data['dateini']);
             $UpdateEve->setEveFechaFin($data['datefin']);
-            $UpdateEve->setEveImage($dburl);
+            $UpdateEve->setEveImage($url);
             $UpdateEve->save();
             return response()->json([
                 'success' => true,

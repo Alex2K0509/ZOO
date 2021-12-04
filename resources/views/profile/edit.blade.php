@@ -89,7 +89,7 @@
                            <span class="font-weight-light">Contraseña</span>
                         </h3>
                     </div>
-                    <form >
+                    <form id="form-password-profile" >
 
                         <div class="pl-lg-4">
                             <div class="form-group">
