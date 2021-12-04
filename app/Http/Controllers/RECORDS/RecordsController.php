@@ -738,8 +738,7 @@ class RecordsController extends Controller
         try {
             foreach (TOKEn::all() as $tokens) {
 
-                //es de publicaciones pero me dio flojera cambiar el nombre de las variables :v
-                //$token = "fQZNTjKkTmqjn7lDPdsrHL:APA91bEwGEVj8iwZ1Kv-ytbdaMdY5RCdvvOgpAa026GCjgl7B3q1aR21uzMbJvg9IJEddh1NkqptUEQhxPgzn25TN8Zk-E6Co7WhCBOWrcHqbZiu-sYs3N15rlYp5CxqBuR3YSFkZJev";
+
                 $token = $tokens->token;
                 $from = "AAAADULzWxo:APA91bFVKcx4b_AgNvEv8dLNMCxPUl5rssoIYAaHHrmaUew66Q8o1s3yY1MVHK4ZaW2z8vdjUYoPY1cJtR26Gqz7-BSv1Mi8Q-WVUbdPF6KDv7Z9kEAoDTpH6NY_oJDS9p_glGh5SWwg";
                 $msg = array(
@@ -759,7 +758,7 @@ class RecordsController extends Controller
                     'Authorization: key=' . $from,
                     'Content-Type: application/json'
                 );
-                //#Send Reponse To FireBase Server
+
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
                 curl_setopt($ch, CURLOPT_POST, true);

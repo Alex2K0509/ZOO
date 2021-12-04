@@ -282,7 +282,7 @@ function editEvento() {
     formEvento.append('name', $('#nameEve').val());
     formEvento.append('descrip', $('#descripEve').val());
     formEvento.append('dateini', $('#Fechaini').val());
-    formEvento.append('datefin', $('#Fechaini').val());
+    formEvento.append('datefin', $('#Fechafin').val());
     formEvento.append('timeini', $('#Horaini').val());
     formEvento.append('timefin', $('#Horafin').val());
     formEvento.append('eventeimage', $('#updafile')[0].files[0]);
@@ -666,7 +666,7 @@ function deleteAnimals(id) {
 }
 
 function notiEvento(id) {
-    //console.log(id);
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1381,23 +1381,6 @@ function deleteQR(id) {
 
 }
 
-const resizeImage = (img, maxWidth, maxHeight) => {
-    var newWidth = img.width, newHeight = img.height
-    if (img.width > img.height && img.width > maxWidth) {
-        var newHeight = Math.floor(img.height * (maxWidth / img.width))
-        var newWidth = maxWidth
-    }
-    else if (img.height > maxHeight) {
-        var newHeight = maxHeight
-        var newWidth = Math.floor(img.width * (maxHeight / img.height))
-    }
-    const canvas = document.createElement('canvas')
-    canvas.width = newWidth
-    canvas.height = newHeight
-    var ctx = canvas.getContext("2d")
-    ctx.drawImage(img, 0, 0, newWidth, newHeight)
-    return canvas.toDataURL("image/jpeg")
-}
 
 
 
@@ -1679,7 +1662,7 @@ $(document).ready(function () {
 
         })
         .catch(function (err) {
-            console.log("Unable to get permission to notify.", err);
+            //console.log("Unable to get permission to notify.");
         });
 
     messaging.onMessage(function (payload) {
