@@ -139,24 +139,31 @@ class RecordsController extends Controller
                 ]
             );
         }
-        $imageEve = $request->file('eventeimage');
-        if (!is_null($imageEve)) {
-            $validator = Validator::make($request->all(), [
-                'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => implode(",", $validator->messages()->all())
-                ]);
-            }
-            #SUBIENDO LA IMAGEN AL DRIVE
-            $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
-            $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('public');
-            $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
+        if($request->file('eventeimage')){
+            $rules2 = [
+                'eventeimage' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+            ];
+            $messages2 = [
+                'eventeimage.max' => 'El archivo no debe ser superior a 2 megas'
+            ];
+            $validator2 = Validator::make($request->all(), $rules2, $messages2);
+            if ($validator2->fails()) {
+                $messagesF = $validator2->messages();
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' =>$messagesF->first(),
+                    ]
+                );
+            }
+
+            $file = $request->file('eventeimage');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+        }else{
+            $url = null;
         }
 
 
@@ -472,24 +479,32 @@ class RecordsController extends Controller
             ]);
         }
 
-        $imageEve = $request->file('updaimagefile');
-        if (!is_null($imageEve)) {
-            $validator = Validator::make($request->all(), [
-                'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => implode(",", $validator->messages()->all())
-                ]);
-            }
-            #SUBIENDO LA IMAGEN AL DRIVE
-            $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
-            $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('public');
-            $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
+
+        if($request->file('updaimagefile')){
+            $rules2 = [
+                'updaimagefile' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+            ];
+            $messages2 = [
+                'updaimagefile.max' => 'El archivo no debe ser superior a 2 megas'
+            ];
+            $validator2 = Validator::make($request->all(), $rules2, $messages2);
+            if ($validator2->fails()) {
+                $messagesF = $validator2->messages();
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' =>$messagesF->first(),
+                    ]
+                );
+            }
+
+            $file = $request->file('updaimagefile');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+        }else{
+            $url = null;
         }
 
         try {
