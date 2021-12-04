@@ -515,10 +515,10 @@ class RecordsController extends Controller
 
             $UpdatPub = PUBlicaciones::where('pub_id', $idpub[0])->first();
 
-            $dburl = isset($imageurl) ? !is_null($imageurl) ? $imageurl : $UpdatPub->getImage() : $UpdatPub->getImage();
+
             $UpdatPub->setTitle($data['titlepubli']);
             $UpdatPub->setDescrip($data['decrippubli']);
-            $UpdatPub->setImage($dburl);
+            $UpdatPub->setImage($url);
             $UpdatPub->save();
 
             return response()->json([
