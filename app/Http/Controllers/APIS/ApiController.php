@@ -22,6 +22,7 @@ class ApiController extends Controller
  */
 protected function getEventos(){
     try {
+        throw new \Exception('Exception message');
         $Eventos = CATEventos::all();
         if(count($Eventos) <=0){
             $response = [
