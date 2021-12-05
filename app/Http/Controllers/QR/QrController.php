@@ -145,9 +145,10 @@ class QrController extends Controller
     protected function deleteQr(Request $request){
         $data = $request->all();
         $id = $data['code'];
+       # dd($id);
 
         try {
-            $user = Qrcode::where('qr_ID', '=', $id[0])->first();
+            $user = Qrcode::where('qr_ID', '=', $id)->first();
             $user->delete();
 
             return response()->json(

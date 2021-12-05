@@ -20,14 +20,6 @@ class EnsureUserIsEnable
     public function handle(Request $request, Closure $next)
     {
 
-       // $data = $request->all();
-        //dd($data);
-        //$email = $data['email'];
-        //$user = User::where('email',$email)->first();
-        //$userId= auth()->user()->id;
-        //$status = $user->getStatusNum();
-        $status = auth()->user();
-        #dd($status);
         $status = auth()->user()->status;
             if($status != 1){
                 Session::flush();

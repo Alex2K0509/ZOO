@@ -101,4 +101,5 @@ Route::group(['middleware' => ['auth','userable']], function () {
     Route::post('/create/QR',  'App\Http\Controllers\QR\QrController@createQr');
     Route::get('/table/QR',  'App\Http\Controllers\QR\QrController@tableQr');
     Route::post('/edit/QR',  'App\Http\Controllers\QR\QrController@editQr');
+    Route::delete('/delete/QR',  'App\Http\Controllers\QR\QrController@deleteQr');
 });

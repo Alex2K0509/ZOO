@@ -175,7 +175,7 @@ class RecordsController extends Controller
 
             $ideve = $hash->decode($data['id']);
             $UpdateEve = CATEventos::where('eve_eve', $ideve)->first();
-            
+
 
 
 
