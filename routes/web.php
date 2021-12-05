@@ -31,7 +31,7 @@ Route::get('password/reset', 'App\Http\Controllers\Auth\ForgotPasswordController
 //Auth::routes();
 Auth::routes(["register" => false]);
 Route::group(['middleware' => ['auth','userable']], function () {
-
+    Route::group(['middleware' => 'logs'], function(){
     Route::get('/home', 'App\Http\Controllers\RECORDS\RecordsController@tableeventos')->name('home');
     Route::get('/home', 'App\Http\Controllers\RECORDS\RecordsController@tableeventos')->name('home');
 
@@ -57,8 +57,6 @@ Route::group(['middleware' => ['auth','userable']], function () {
     #ruta para insertar eventos
     Route::post('/evento/add', 'App\Http\Controllers\CATALOGOS\CatalogosController@InserEvent')->name('eventoInsert');
     Route::post('/animal/add', 'App\Http\Controllers\CATALOGOS\CatalogosController@InsertAnimal')->name('InsertAnimal');
-    #ruta para editar un evento
-    #Route::get('/edit/evento', 'App\Http\Controllers\CATALOGOS\RecordsController@editEventos')->name('edit.eventos');
 
     #rutas para formar los data tables
     Route::get('/table/eventos', 'App\Http\Controllers\RECORDS\RecordsController@tableeventos')->name('table.eventos');
@@ -85,10 +83,6 @@ Route::group(['middleware' => ['auth','userable']], function () {
     #RUTAS PARA EDITAR LA IMAGEN DE PERFIL
     Route::post('/profile/edit/pic', 'App\Http\Controllers\ProfileController@editPic')->name('edit.pic');
 
-
-    Route::get('/report/event/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createEventReport');
-    Route::get('/report/post/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createPostReport');
-    Route::get('/report/animal/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createAnimalReport');
     Route::post('profile/info', 'App\Http\Controllers\ProfileController@update'); #actualizar info
     Route::post('profile/password',  'App\Http\Controllers\ProfileController@password');
 
@@ -102,4 +96,8 @@ Route::group(['middleware' => ['auth','userable']], function () {
     Route::get('/table/QR',  'App\Http\Controllers\QR\QrController@tableQr');
     Route::post('/edit/QR',  'App\Http\Controllers\QR\QrController@editQr');
     Route::delete('/delete/QR',  'App\Http\Controllers\QR\QrController@deleteQr');
+    });
+    Route::get('/report/event/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createEventReport');
+    Route::get('/report/post/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createPostReport');
+    Route::get('/report/animal/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createAnimalReport');
 });
