@@ -198,7 +198,7 @@ class CatalogosController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'Error, intentar más tarde.'
+                    'message' => $exception->getMessage()
                 ]
             );
         }
