@@ -60,7 +60,7 @@ class ProfileController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'Error, intentar más tarde.',
+                    'message' => $exception->getMessage()
                 ]
             );
         }
@@ -98,7 +98,7 @@ class ProfileController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => $messages,
+                    'message' => $messages->first(),
                 ]
             );
         }
@@ -145,7 +145,10 @@ class ProfileController extends Controller
             );
             return true;
         }catch (\Exception $exception){
-
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
         }
     }
 

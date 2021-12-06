@@ -34,6 +34,36 @@ class UserController extends Controller
     }
 
     protected function createAdmin(Request $request){
+        $rules = [
+            'paswordAdmin' => ['required', 'min:1', 'max:20', 'regex:/^[A-Za-z0-9]+$/u'],
+            'nameAdmin' => ['required', 'min:1', 'max:100'],
+            'emailAdmin' => ['required', 'min:1', 'max:30', 'regex:/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/u']
+
+        ];
+        $messages = [
+            'paswordAdmin.required' => 'El campo de la contraseña no puede estar vacío.',
+            'paswordAdmin.min' => 'El campo de la contraseña debe tener al menos un caracter.',
+            'paswordAdmin.max' => 'El campo de la contraseña no debe exceder de los 20 caracteres.',
+            'paswordAdmin.regex' => 'El campo de de la contraseña no cumple con el formato permitido.',
+            'nameAdmin.required' => 'El campo de la nombre no puede estar vacío.',
+            'emailAdmin.required' => 'El campo del email no puede estar vacío.',
+            'emailAdmin.min' => 'El campo del email debe tener al menos un caracter.',
+            'emailAdmin.max' => 'El campo del email no debe exceder de los 30 caracteres.',
+            'emailAdmin.regex' => 'El campo del email no cumple con el formato permitido.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => $messages->first(),
+                ]
+            );
+        }
+
         $data = $request->all();
         $emailExist = User::where('email',$data['emailAdmin'])->first();
         if(!is_null($emailExist)){
@@ -62,7 +92,8 @@ class UserController extends Controller
         }catch (\Exception $exception){
             DB::rollBack();
             return response()->json([
-                "error" => $exception->getMessage(),
+                'success' => false,
+                'message' => $exception->getMessage()
             ]);
         }
     }
@@ -133,7 +164,8 @@ class UserController extends Controller
             ]);
         }catch (\Exception $exception){
             return response()->json([
-                "error" => $exception->getMessage(),
+                'success' => false,
+                'message' => $exception->getMessage()
             ]);
         }
     }

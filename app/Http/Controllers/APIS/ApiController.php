@@ -37,8 +37,8 @@ protected function getEventos(){
     }catch (\Exception $exception){
 
         $response = [
-            "mensaje" => "error",
-            "eventos" => $exception->getMessage()
+            'success' => false,
+            'message' => $exception->getMessage()
         ];
         return response()->json($response, 400);
     }
@@ -112,8 +112,8 @@ $publicacionesAll = PUBlicaciones::getPosts($data['id'],$params)->get();
     }catch (\Exception $exception){
 
         $response = [
-            "mensaje" => "error",
-            "error" => $exception->getMessage()
+            'success' => false,
+            'message' => $exception->getMessage()
         ];
         return response()->json($response, 400);
     }

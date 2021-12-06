@@ -79,7 +79,8 @@ class QrController extends Controller
         }catch (\Exception $exception){
             DB::rollBack();
             return response()->json([
-                "error" => $exception->getMessage(),
+                'success' => false,
+                'message' => $exception->getMessage()
             ]);
         }
     }
