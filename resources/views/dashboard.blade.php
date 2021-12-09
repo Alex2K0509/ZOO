@@ -19,7 +19,7 @@
                                 <tr style="width: 100%">
                                     <th  scope="col">Nombre del evento</th>
                                     <th class="contenido-tablas-descripcion" scope="col">Descripción del evento</th>
-                                    <th scope="col">Hora de inicion del evento</th>
+                                    <th scope="col">Hora de inicio del evento</th>
                                     <th scope="col">Hora de finalización del evento</th>
                                     <th scope="col">Fecha inicial del evento</th>
                                     <th scope="col">Feche final del evento</th>
@@ -53,7 +53,7 @@
                             <thead>
                             <tr style="width: 100%">
                                 <th  scope="col">Animal de la publicación</th>
-                                <th  scope="col">Titulo de la publicación</th>
+                                <th  scope="col">Título de la publicación</th>
                                 <th class="contenido-tablas-descripcion" scope="col">Contenido de la publicación</th>
                                 <th scope="col">Fecha de creación</th>
                                 <th scope="col">Acciones</th>
@@ -199,7 +199,7 @@
                                 <form role="form" id="fomr-publi" enctype="multipart/form-data" method="post">
                                     <div class="form-group">
                                         <p>Seleccione los atributos que desee actualizar</p>
-                                        <label for="titlepubli">Titulo de la publicación:</label>
+                                        <label for="titlepubli">Título de la publicación:</label>
                                         <input type="text" class="form-control" id="titlepubli" name="titlepubli">
                                     </div>
 

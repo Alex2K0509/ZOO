@@ -23,7 +23,7 @@ protected function inserPost(Request $request){
     ];
     $messages = [
         'select.required' => 'Debe seleccionar un tipo de animal para la publicación.',
-        'title.required' => 'El titulo de la publicación es requerido.',
+        'title.required' => 'El título de la publicación es requerido.',
         'title.min' => 'El titulo debe tener al menos un caracter.',
         'title.max' => 'El titulo no debe exceder de los 80 caracteres.',
         'title.regex' => 'El titulo contiene caracteres no validos.',

@@ -463,7 +463,7 @@ class RecordsController extends Controller
             'decrippubli' => ['required','min:1', 'max:500'],
         ];
         $messages = [
-            'titlepubli.required' => 'El titulo de la publicación es requerido.',
+            'titlepubli.required' => 'El título de la publicación es requerido.',
             'titlepubli.min' => 'El titulo debe tener al menos un caracter.',
             'titlepubli.max' => 'El titulo no debe exceder de los 80 caracteres.',
             'decrippubli.required' => 'El contenido de la publicación es requerido.',

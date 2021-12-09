@@ -51,7 +51,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                             <a href="{{ route('password.request') }}" class="text-light" style="color: white">
-                                <small style="color: black">{{ __('¿Olvidate tu contraseña?') }}</small>
+                                <small style="color: black">{{ __('¿Olvidaste tu contraseña?') }}</small>
                             </a>
                     </div>
                 </div>

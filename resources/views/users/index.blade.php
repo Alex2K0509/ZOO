@@ -109,7 +109,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Titulo de la publicación:</label>
+                            <label for="name">Título de la publicación:</label>
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
                         <div class="form-group">
